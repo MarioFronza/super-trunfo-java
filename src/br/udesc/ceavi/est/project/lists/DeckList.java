@@ -1,18 +1,18 @@
 package br.udesc.ceavi.est.project.lists;
 
-import br.udesc.ceavi.est.project.interfaces.List;
+import br.udesc.ceavi.est.project.interfaces.ListDeck;
 
-public class ArrayList<E> implements List<E> {
+public class DeckList<E> implements ListDeck<E> {
 
     public static final int CAPACITY = 16;
     private E[] data;
     private int size = 0;
 
-    public ArrayList() {
+    public DeckList() {
         this(CAPACITY);
     }
 
-    public ArrayList(int capacity) {
+    public DeckList(int capacity) {
         data = (E[]) new Object[capacity];
     }
 
@@ -43,9 +43,6 @@ public class ArrayList<E> implements List<E> {
     @Override
     public void add(int i, E e) {
         checkIndex(i, size + 1);
-        if (size == data.length) {
-            resize(2 * data.length);
-        }
         for (int k = size - 1; k >= i; k--) {
             data[k + 1] = data[k];
         }
@@ -53,17 +50,15 @@ public class ArrayList<E> implements List<E> {
         size++;
     }
 
-    public void add(E e) {
-        add(size, e);
+    public void addLast(E e) {
+        add(size - 1, e);
     }
 
     @Override
     public E remove(int i) {
         checkIndex(i, size);
         E temp = data[i];
-        for (int k = i; k < size - 1; k++) {
-            data[k] = data[k + 1];
-        }
+        data[i] = data[size - 1];
         data[size - 1] = null;
         size--;
         return temp;
@@ -73,14 +68,6 @@ public class ArrayList<E> implements List<E> {
         if (i < 0 || i >= n) {
             throw new IndexOutOfBoundsException("Illegal index: " + i);
         }
-    }
-
-    protected void resize(int capacity) {
-        E[] temp = (E[]) new Object[capacity];
-        for (int k = 0; k < size; k++) {
-            temp[k] = data[k];
-        }
-        data = temp;
     }
 
     @Override

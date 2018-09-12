@@ -10,15 +10,15 @@ public class Card {
     private final String name;
     private final float weight;
     private final float size;
-    private final int brood;
-    private final int timeLife;
+    private final int age;
+    private final float width;
 
-    public Card(String name, float weight, float size, int brood, int timeLife) {
+    public Card(String name, float width, float size, float weight, int age) {
         this.name = name;
         this.weight = weight;
         this.size = size;
-        this.brood = brood;
-        this.timeLife = timeLife;
+        this.age = age;
+        this.width = width;
     }
 
     public String getName() {
@@ -33,11 +33,19 @@ public class Card {
         return size;
     }
 
-    public int getBrood() {
-        return brood;
+    public int getAge() {
+        return age;
     }
 
-    public int getTimeLife() {
-        return timeLife;
+    public float getWidth() {
+        return width;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" + "name=" + name + ", weight=" + weight + ", size=" + size + ", age=" + age + ", width=" + width + '}';
+    }
+
+    
+    
 }
