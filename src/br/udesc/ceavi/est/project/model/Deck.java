@@ -13,16 +13,19 @@ public class Deck {
     
     private ArrayList<Card> deck = new ArrayList<>(20);
     private float averageWeight;
-    private float averageWidth;
+    private float averageHeight;
     private float averageSize;
     private float averageAge;
     private float biggerWeight;
-    private float biggerWidth;
+    private float biggerHeight;
     private float biggerSize;
     private float biggerAge;
 
     public Deck() {
-        // Cria as cartas
+        
+    }
+    
+    public void createDeck() {
         Card card;
         card = new Card("Peteinossauro", 0.3f, 0.6f, 0.1f, 210);
         deck.add(card);
@@ -64,51 +67,14 @@ public class Deck {
         deck.add(card);
         card = new Card("Procompsognato", 0.3f, 1.2f, 1, 222);
         deck.add(card);
-        
-        // Embaralha, cálcula média e recebe maiores valores
         deck = shuffle();
-        calculateAvarege();
+        calculateAverage();
         biggerAge = biggerAge();
         biggerSize = biggerSize();
+        biggerHeight = biggerWidth();
         biggerWeight = biggerWeight();
-        biggerWidth = biggerWidth();
-    }
-    
-    // Retorna um baralho já embaralhado e com média calculada
-    public ArrayList<Card> getDeck() {
-        return deck;
-    }
-    
-    public float getAverageWeight() {
-        return averageWeight;
-    }
-
-    public float getAverageWidth() {
-        return averageWidth;
-    }
-
-    public float getAverageSize() {
-        return averageSize;
-    }
-
-    public float getAverageAge() {
-        return averageAge;
-    }
-
-    public float getBiggerWeight() {
-        return biggerWeight;
-    }
-
-    public float getBiggerWidth() {
-        return biggerWidth;
-    }
-
-    public float getBiggerSize() {
-        return biggerSize;
-    }
-
-    public float getBiggerAge() {
-        return biggerAge;
+        calculatePercentageAverage();
+        showAverage();
     }
     
     private float biggerWeight() {
@@ -122,13 +88,13 @@ public class Deck {
     }
 
     private float biggerWidth() {
-        this.biggerWidth = deck.get(0).getWidth();
+        this.biggerHeight = deck.get(0).getHeight();
         for (int i = 0; i < deck.size(); i++) {
-            if (deck.get(i).getWidth()> this.biggerWidth) {
-                this.biggerWidth = deck.get(i).getWidth();
+            if (deck.get(i).getHeight()> this.biggerHeight) {
+                this.biggerHeight = deck.get(i).getHeight();
             }
         }
-        return biggerWidth;
+        return biggerHeight;
     }
 
     private float biggerSize() {
@@ -151,7 +117,7 @@ public class Deck {
         return biggerAge;
     }
     
-    private ArrayList<Card> shuffle() {
+    public ArrayList<Card> shuffle() {
         Random random = new Random();
         int size = deck.size();
         for (int i = 0; i < size; i++) {
@@ -163,17 +129,84 @@ public class Deck {
         return deck;
     }
     
-    private void calculateAvarege() {
+    private void showAverage() {
+        for (int i = 0; i < deck.size(); i++) {
+            System.out.println("Nome: " + deck.get(i).getName() + " | Valor carta: " + deck.get(i).getAverage());
+        }
+    }
+    
+    private void calculateAverage() {
         int size = deck.size();
         for (int i = 0; i < size; i++) {
             this.averageAge += deck.get(i).getAge(); 
             this.averageSize += deck.get(i).getSize();
+            this.averageHeight += deck.get(i).getHeight();
             this.averageWeight += deck.get(i).getWeight();
-            this.averageWidth += deck.get(i).getWidth();
         }
         this.averageAge = (this.averageAge / size);
-        this.averageSize = this.averageSize / size;
-        this.averageWeight = this.averageWeight / size;
-        this.averageWidth = this.averageWidth / size;
+        this.averageSize = (this.averageSize / size);
+        this.averageHeight = (this.averageHeight / size);
+        this.averageWeight = (this.averageWeight / size);
+    }
+    
+    private void calculatePercentageAverage() {
+        for (int i = 0; i < deck.size(); i++) {
+            if (calculatePercentageAboveAverage(averageAge, deck.get(i).getAge()) > 0) {
+                deck.get(i).setPercentageAverageAge(calculatePercentageAboveAverage(averageAge, deck.get(i).getAge()));
+                deck.get(i).setAverage(deck.get(i).getAverage() + 1);
+            }
+            if (calculatePercentageAboveAverage(averageSize, deck.get(i).getSize()) > 0) {
+                deck.get(i).setPercentageAverageSize(calculatePercentageAboveAverage(averageSize, deck.get(i).getSize()));
+                deck.get(i).setAverage(deck.get(i).getAverage() + 1);
+            }
+            if (calculatePercentageAboveAverage(averageHeight, deck.get(i).getHeight()) > 0) {
+                deck.get(i).setPercentageAverageHeight(calculatePercentageAboveAverage(averageHeight, deck.get(i).getHeight()));
+                deck.get(i).setAverage(deck.get(i).getAverage() + 1);
+            }
+            if (calculatePercentageAboveAverage(averageWeight, deck.get(i).getWeight()) > 0) {
+                deck.get(i).setPercentageAverageWeight(calculatePercentageAboveAverage(averageWeight, deck.get(i).getWeight()));
+                deck.get(i).setAverage(deck.get(i).getAverage() + 1);
+            }
+        }
+    }
+    
+    private float calculatePercentageAboveAverage(float average, float value) {
+        return (((value - average) / average) * 100) > 0 ? (((value - average) / average) * 100) : 0;
+    }
+    
+    public ArrayList<Card> getDeck() {
+        return deck;
+    }
+    
+    public float getAverageWeight() {
+        return averageWeight;
+    }
+
+    public float getAverageHeight() {
+        return averageHeight;
+    }
+
+    public float getAverageSize() {
+        return averageSize;
+    }
+
+    public float getAverageAge() {
+        return averageAge;
+    }
+
+    public float getBiggerWeight() {
+        return biggerWeight;
+    }
+
+    public float getBiggerHeight() {
+        return biggerHeight;
+    }
+
+    public float getBiggerSize() {
+        return biggerSize;
+    }
+
+    public float getBiggerAge() {
+        return biggerAge;
     }
 }

@@ -16,9 +16,6 @@ public class Principal {
         Controller controller = new Controller();
         MainFrame game = MainFrame.getInstance();
         game.setVisible(true);
-        game.getLblPanel().setText("Escolha a carta");
-        controller.criarDeck();
-        controller.addActionListener();
-        controller.showCards();
+        controller.initGame();
     }
 }

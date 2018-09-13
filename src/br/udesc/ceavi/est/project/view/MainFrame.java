@@ -18,6 +18,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         btnNextRodada.setVisible(false);
+        btnNextCompRound.setVisible(false);
         btnNext.setVisible(false);
     }
     
@@ -40,6 +41,10 @@ public class MainFrame extends javax.swing.JFrame {
         return btnNextRodada;
     }
 
+    public JButton getBtnNextCompRound() {
+        return btnNextCompRound;
+    }
+    
     public JLabel getLblText() {
         return lblText;
     }
@@ -321,6 +326,7 @@ public class MainFrame extends javax.swing.JFrame {
         btnNextRodada = new javax.swing.JButton();
         lblPanel1 = new javax.swing.JLabel();
         lblText = new javax.swing.JLabel();
+        btnNextCompRound = new javax.swing.JButton();
 
         jLabel1.setText("jLabel1");
 
@@ -1103,7 +1109,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(cardUserPeso)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cardUserAno)
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         lblPanel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1130,6 +1136,9 @@ public class MainFrame extends javax.swing.JFrame {
 
         lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        btnNextCompRound.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnNextCompRound.setText("Próxima rodada comp");
+
         javax.swing.GroupLayout panelBackgroundLayout = new javax.swing.GroupLayout(panelBackground);
         panelBackground.setLayout(panelBackgroundLayout);
         panelBackgroundLayout.setHorizontalGroup(
@@ -1155,7 +1164,9 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(lblPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnNextRodada, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnNextCompRound, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnNextRodada, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -1186,13 +1197,16 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGap(13, 13, 13)
                                         .addComponent(btnNext)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnNextRodada))))
-                            .addComponent(panelCartaComputador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelCartaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(btnNextRodada)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnNextCompRound)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(panelCartaComputador, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)
+                            .addComponent(panelCartaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE)))
                     .addGroup(panelBackgroundLayout.createSequentialGroup()
                         .addGap(95, 95, 95)
                         .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addComponent(panelInferiorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1233,6 +1247,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCard4;
     private javax.swing.JButton btnCard5;
     private javax.swing.JButton btnNext;
+    private javax.swing.JButton btnNextCompRound;
     private javax.swing.JButton btnNextRodada;
     private javax.swing.JLabel card1Altura;
     private javax.swing.JLabel card1Comprimento;
