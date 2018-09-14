@@ -1,6 +1,7 @@
 package br.udesc.ceavi.est.project.principal;
 
 import br.udesc.ceavi.est.project.controlador.Controller;
+import br.udesc.ceavi.est.project.listeners.ListenerMainFrame;
 import br.udesc.ceavi.est.project.view.MainFrame;
 
 /**
@@ -11,11 +12,12 @@ import br.udesc.ceavi.est.project.view.MainFrame;
  */
 public class Principal {
     
-    
     public static void main(String[] args) {
         Controller controller = new Controller();
         MainFrame game = MainFrame.getInstance();
         game.setVisible(true);
         controller.initGame();
+        ListenerMainFrame listener = new ListenerMainFrame();
+        listener.addActionListener();
     }
 }

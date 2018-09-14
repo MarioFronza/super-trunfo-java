@@ -21,102 +21,86 @@ public class Deck {
     private float biggerSize;
     private float biggerAge;
 
+    // Construtor
     public Deck() {
         
     }
     
+    // Cria o deck com as cartas
     public void createDeck() {
         Card card;
-        card = new Card("Peteinossauro", 0.3f, 0.6f, 0.1f, 210);
+        card = new Card("Peteinossauro", 0.3f, 0.6f, 0.1f, 210.0f);
         deck.add(card);
-        card = new Card("Oftamossauro", 1.3f, 5, 3000, 165);
+        card = new Card("Oftamossauro", 1.3f, 5.0f, 3000.0f, 165.0f);
         deck.add(card);
-        card = new Card("Alossauro", 5.2f, 14, 3600, 151);
+        card = new Card("Alossauro", 5.2f, 14.0f, 3600.0f, 151.0f);
         deck.add(card);
-        card = new Card("Globidens", 1.1f, 6, 400, 150);
+        card = new Card("Globidens", 1.1f, 6.0f, 400.0f, 150.0f);
         deck.add(card);
-        card = new Card("Barionix", 8, 12, 2000, 125);
+        card = new Card("Barionix", 8.0f, 12.0f, 2000.0f, 125.0f);
         deck.add(card);
-        card = new Card("Triceratopo", 6, 9, 6000, 68);
+        card = new Card("Triceratopo", 6.0f, 9.0f, 6000.0f, 68.0f);
         deck.add(card);
-        card = new Card("Ultrassauro", 22, 38, 90000, 154);
+        card = new Card("Ultrassauro", 22.0f, 38.0f, 90000.0f, 154.0f);
         deck.add(card);
-        card = new Card("Tiranossauro (T)", 5.6f, 14, 7000, 68);
+        card = new Card("Tiranossauro (T)", 5.6f, 14.0f, 7000.0f, 68.0f);
         deck.add(card);
-        card = new Card("Patagossauro", 8, 18, 16000, 169);
+        card = new Card("Patagossauro", 8.0f, 18.0f, 16000.0f, 169.0f);
         deck.add(card);
-        card = new Card("Brachiossauro", 15, 28, 50000, 156);
+        card = new Card("Brachiossauro", 15.0f, 28.0f, 50000.0f, 156.0f);
         deck.add(card);
-        card = new Card("Pterodactilo", 0.1f, 1, 1, 140);
+        card = new Card("Pterodactilo", 0.1f, 1.0f, 1.0f, 140.0f);
         deck.add(card);
-        card = new Card("Velociraptor", 1, 2, 80, 80);
+        card = new Card("Velociraptor", 1.0f, 2.0f, 80.0f, 80.0f);
         deck.add(card);
-        card = new Card("Estegossauro", 4, 9, 4000, 159);
+        card = new Card("Estegossauro", 4.0f, 9.0f, 4000.0f, 159.0f);
         deck.add(card);
-        card = new Card("Dilofossauro", 2.5f, 7, 450, 206);
+        card = new Card("Dilofossauro", 2.5f, 7.0f, 450.0f, 206.0f);
         deck.add(card);
-        card = new Card("Diplodoco", 5, 27, 20000, 157);
+        card = new Card("Diplodoco", 5.0f, 27.0f, 20000.0f, 157.0f);
         deck.add(card);
-        card = new Card("Melanorossauro", 12, 15, 8000, 220);
+        card = new Card("Melanorossauro", 12.0f, 15.0f, 8000.0f, 220.0f);
         deck.add(card);
-        card = new Card("Compsognato", 0.7f, 1, 2.5f, 170);
+        card = new Card("Compsognato", 0.7f, 1.0f, 2.5f, 170.0f);
         deck.add(card);
-        card = new Card("Baptornis", 0.8f, 1, 7, 83);
+        card = new Card("Baptornis", 0.8f, 1.0f, 7.0f, 83.0f);
         deck.add(card);
-        card = new Card("Psitacossauro", 0.7f, 2, 25, 125);
+        card = new Card("Psitacossauro", 0.7f, 2.0f, 25.0f, 125.0f);
         deck.add(card);
-        card = new Card("Procompsognato", 0.3f, 1.2f, 1, 222);
+        card = new Card("Procompsognato", 0.3f, 1.2f, 1.0f, 222.0f);
         deck.add(card);
-        deck = shuffle();
-        calculateAverage();
-        biggerAge = biggerAge();
-        biggerSize = biggerSize();
-        biggerHeight = biggerWidth();
-        biggerWeight = biggerWeight();
-        calculatePercentageAverage();
-        showAverage();
     }
     
-    private float biggerWeight() {
+    // Pega os maiores valores, calcula média e calcula a porcentagem de cada carta acima da média
+    public void getValues() {
+        deck = shuffle();
+        biggestValues();
+        calculateAverage();
+        calculatePercentageAverage();
+    }
+    
+    // Pega o maior valor
+    private void biggestValues() {
         this.biggerWeight = deck.get(0).getWeight();
+        this.biggerHeight = deck.get(0).getHeight();
+        this.biggerSize = deck.get(0).getSize();
+        this.biggerAge = deck.get(0).getAge();
         for (int i = 0; i < deck.size(); i++) {
             if (deck.get(i).getWeight() > this.biggerWeight) {
                 this.biggerWeight = deck.get(i).getWeight();
             }
-        }
-        return biggerWeight;
-    }
-
-    private float biggerWidth() {
-        this.biggerHeight = deck.get(0).getHeight();
-        for (int i = 0; i < deck.size(); i++) {
             if (deck.get(i).getHeight()> this.biggerHeight) {
                 this.biggerHeight = deck.get(i).getHeight();
             }
-        }
-        return biggerHeight;
-    }
-
-    private float biggerSize() {
-        this.biggerSize = deck.get(0).getSize();
-        for (int i = 0; i < deck.size(); i++) {
             if (deck.get(i).getSize()> this.biggerSize) {
                 this.biggerSize = deck.get(i).getSize();
             }
-        }
-        return biggerSize;
-    }
-
-    private float biggerAge() {
-        this.biggerAge = deck.get(0).getAge();
-        for (int i = 0; i < deck.size(); i++) {
             if (deck.get(i).getAge() > this.biggerAge) {
                 this.biggerAge = deck.get(i).getAge();
             }
         }
-        return biggerAge;
     }
-    
+
     public ArrayList<Card> shuffle() {
         Random random = new Random();
         int size = deck.size();
@@ -127,12 +111,6 @@ public class Deck {
             deck.set(r, temp);
         }
         return deck;
-    }
-    
-    private void showAverage() {
-        for (int i = 0; i < deck.size(); i++) {
-            System.out.println("Nome: " + deck.get(i).getName() + " | Valor carta: " + deck.get(i).getAverage());
-        }
     }
     
     private void calculateAverage() {

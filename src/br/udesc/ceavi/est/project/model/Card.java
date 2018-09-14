@@ -7,16 +7,16 @@ package br.udesc.ceavi.est.project.model;
  * @since 03/09/2018.
  */
 public class Card {
-    private final String name;
+    private final String name; // Nome
     private final float age; // Ano
     private final float size; // Comprimento
     private final float height; // Altura
     private final float weight;  // Peso
-    private float percentageAverageAge;
+    private float percentageAverageAge; // Porcentagem do  em relação a média
     private float percentageAverageSize;
     private float percentageAverageHeight;
     private float percentageAverageWeight;
-    private int average;
+    private int average; // Quantidade de pontos com base na média
 
     public Card(String name, float height, float size, float weight, float age) {
         this.name = name;
@@ -84,5 +84,10 @@ public class Card {
 
     public void setAverage(int average) {
         this.average = average;
+    }
+
+    @Override
+    public String toString() {
+        return "Card{" + "name=" + name + ", age=" + age + ", size=" + size + ", height=" + height + ", weight=" + weight + ", percentageAverageAge=" + percentageAverageAge + ", percentageAverageSize=" + percentageAverageSize + ", percentageAverageHeight=" + percentageAverageHeight + ", percentageAverageWeight=" + percentageAverageWeight + ", average=" + average + '}';
     }
 }
