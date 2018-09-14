@@ -245,8 +245,6 @@ public class Controller {
         handComp.remove(positionCompChoice);
         handComp.addLast(queueComp.dequeue());
 
-        // View
-        MainFrame.getInstance().getBtnNext().setVisible(false);
         MainFrame.getInstance().getBtnNextRodada().setVisible(true);
         if (isUserPlay) {
             if (user.calculateWinner() == true) {
@@ -259,6 +257,20 @@ public class Controller {
                 queueComp.enqueue(compCard);
             }
         } else {
+            switch (userChoice) {
+                case 1:
+                    MainFrame.getInstance().getLblText().setText("O computador escolheu altura como atributo");
+                    break;
+                case 2:
+                    MainFrame.getInstance().getLblText().setText("O computador escolheu comprimento como atributo");
+                    break;
+                case 3:
+                    MainFrame.getInstance().getLblText().setText("O computador escolheu peso como atributo");
+                    break;
+                case 4:
+                    MainFrame.getInstance().getLblText().setText("O computador escolheu ano como atributo");
+                    break;
+            }
             if (user.calculateWinnerComp() == true) {
                 MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
                 queueComp.enqueue(userCard);
@@ -396,21 +408,21 @@ public class Controller {
     }
 
     public void newUserRound() {
-        isUserPlay = true;
-        changeUserHand();
-        changeCompHand();
-        verifyEndGame();
-        MainFrame.getInstance().getBtnNextRodada().setVisible(true);
-        MainFrame.getInstance().getBtnNextCompRound().setVisible(false);
-        controlBtnCardsVisible();
-        controlBtnAttribute();
-        cleanPanelCards();
+        if (!verifyEndGame()) {
+            isUserPlay = false;
+            changeUserHand();
+            changeCompHand();
+            verifyEndGame();
+            MainFrame.getInstance().getBtnNextRodada().setVisible(true);
+            controlBtnCardsVisible();
+            controlBtnAttribute();
+            cleanPanelCards();
+            MainFrame.getInstance().getLblPanel().setText("Escolha a carta");
+            MainFrame.getInstance().getLblText().setText("");
+        }
         showCards();
-        MainFrame.getInstance().getLblPanel().setText("Escolha a carta");
-        MainFrame.getInstance().getLblText().setText("");
     }
 
-    // Adiciona a carta escolhida do usuário na tela
     public void addUserCardGame(Card card, int position) {
         setPositionUserChoice(position);
         setUserCard(card);
@@ -431,19 +443,6 @@ public class Controller {
         MainFrame.getInstance().getCardComputerAno().setText("Viveu Há: " + Float.toString(age));
     }
 
-    private void cleanPanelCards() {
-        MainFrame.getInstance().getCardUserNome().setText(" - ");
-        MainFrame.getInstance().getCardUserAltura().setText(" - ");
-        MainFrame.getInstance().getCardUserComprimento().setText(" - ");
-        MainFrame.getInstance().getCardUserPeso().setText(" - ");
-        MainFrame.getInstance().getCardUserAno().setText(" - ");
-        MainFrame.getInstance().getCardComputerNome().setText(" - ");
-        MainFrame.getInstance().getCardComputerAltura().setText(" - ");
-        MainFrame.getInstance().getCardComputerComprimento().setText(" - ");
-        MainFrame.getInstance().getCardComputerPeso().setText(" - ");
-        MainFrame.getInstance().getCardComputerAno().setText(" - ");
-    }
-
     public void showCompCardGame() {
         MainFrame.getInstance().getLblText().setText("Escolha o atributo");
         MainFrame.getInstance().getCardComputerNome().setText("Nome: - ");
@@ -456,35 +455,50 @@ public class Controller {
         } else {
             Card card = analyzeCompPlay();
             addCompCardGame(card.getName(), card.getHeight(), card.getSize(), card.getWeight(), card.getAge());
-            compareCards();
+            if (queueUser.isEmpty()) {
+                compareUserHands();
+            } else if (queueComp.isEmpty()) {
+                compareCompHands();
+            } else {
+                compareCards();
+            }
         }
     }
 
-    private void verifyEndGame() {
+    private boolean verifyEndGame() {
         if (handUser.size() == 0) {
             MainFrame.getInstance().getLblPanel().setText("O computador venceu o jogo :(");
+            MainFrame.getInstance().getBtnNextRodada().setVisible(false);
+            MainFrame.getInstance().getLblText().setVisible(false);
             controlBtnAttribute();
             controlBtnCards();
             cleanPanelCards();
+            return true;
         } else if (handComp.size() == 0) {
             MainFrame.getInstance().getLblPanel().setText("Você venceu o jogo! Parabéns");
+            MainFrame.getInstance().getLblText().setVisible(false);
+            MainFrame.getInstance().getBtnNextRodada().setVisible(false);
+            controlBtnAttribute();
+            controlBtnCards();
+            cleanPanelCards();
+            return true;
         }
+        return false;
     }
 
     public void newCompRound() {
-        isUserPlay = false;
-        changeUserHand();
-        changeCompHand();
-        controlBtnAttribute();
-        verifyEndGame();
-        MainFrame.getInstance().getLblPanel().setText("O computador já escolheu sua carta");
-        MainFrame.getInstance().getLblText().setText("Escolha a sua carta");
-        MainFrame.getInstance().getBtnNextRodada().setVisible(false);
-        MainFrame.getInstance().getBtnNextCompRound().setVisible(true);
-        MainFrame.getInstance().getBtnNextCompRound().setEnabled(false);
-        controlBtnCardsVisible();
-        controlBtnAttribute();
-        cleanPanelCards();
+        if (!verifyEndGame()) {
+            isUserPlay = true;
+            changeUserHand();
+            changeCompHand();
+            controlBtnAttribute();
+            MainFrame.getInstance().getLblPanel().setText("O computador já escolheu sua carta");
+            MainFrame.getInstance().getLblText().setText("Escolha a sua carta");
+            MainFrame.getInstance().getBtnNextRodada().setVisible(false);
+            controlBtnCardsVisible();
+            controlBtnAttribute();
+            cleanPanelCards();
+        }
         showCards();
     }
 
@@ -611,6 +625,20 @@ public class Controller {
                 MainFrame.getInstance().getPanel5().setVisible(true);
                 break;
         }
+    }
+
+    private void cleanPanelCards() {
+        MainFrame.getInstance().getCardUserNome().setText(" - ");
+        MainFrame.getInstance().getCardUserAltura().setText(" - ");
+        MainFrame.getInstance().getCardUserComprimento().setText(" - ");
+        MainFrame.getInstance().getCardUserPeso().setText(" - ");
+        MainFrame.getInstance().getCardUserAno().setText(" - ");
+        MainFrame.getInstance().getCardComputerNome().setText(" - ");
+        MainFrame.getInstance().getCardComputerAltura().setText(" - ");
+        MainFrame.getInstance().getCardComputerComprimento().setText(" - ");
+        MainFrame.getInstance().getCardComputerPeso().setText(" - ");
+        MainFrame.getInstance().getCardComputerAno().setText(" - ");
+        MainFrame.getInstance().getBtnNextRodada().setVisible(false);
     }
 
     public ArrayQueue<Card> getQueueUser() {

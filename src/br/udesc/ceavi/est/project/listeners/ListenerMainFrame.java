@@ -11,13 +11,13 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
 public class ListenerMainFrame {
-    
+
     MainFrame game = MainFrame.getInstance();
     Controller controller = Controller.getInstance();
     private final ListDeck<Card> handUser;
     private final UserPlay userPlay;
     private final CompPlay compPlay;
-    
+
     public ListenerMainFrame() {
         handUser = controller.getHandUser();
         userPlay = new UserPlay();
@@ -107,7 +107,7 @@ public class ListenerMainFrame {
             controller.changeUserHand();
         }
     }
-    
+
     private class BtCardUserAltura implements ActionListener {
 
         @Override
@@ -177,7 +177,11 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.newCompRound();
+            if (controller.isIsUserPlay()) {
+                controller.newUserRound();
+            } else {
+                controller.newCompRound();
+            }
         }
     }
 }

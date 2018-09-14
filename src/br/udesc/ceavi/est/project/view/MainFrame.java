@@ -19,7 +19,6 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         btnNextRodada.setVisible(false);
-        btnNextCompRound.setVisible(false);
         btnNext.setVisible(false);
     }
     
@@ -40,10 +39,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     public JButton getBtnNextRodada() {
         return btnNextRodada;
-    }
-
-    public JButton getBtnNextCompRound() {
-        return btnNextCompRound;
     }
     
     public JLabel getLblText() {
@@ -364,7 +359,6 @@ public class MainFrame extends javax.swing.JFrame {
         lblPanel = new javax.swing.JLabel();
         btnNext = new javax.swing.JButton();
         lblAtributo = new javax.swing.JLabel();
-        btnNextCompRound = new javax.swing.JButton();
         lblPanel1 = new javax.swing.JLabel();
         lblText = new javax.swing.JLabel();
         btnNextRodada = new javax.swing.JButton();
@@ -1156,7 +1150,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(cardUserPeso)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cardUserAno)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         lblPanel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1172,10 +1166,6 @@ public class MainFrame extends javax.swing.JFrame {
         lblAtributo.setForeground(new java.awt.Color(240, 240, 240));
         lblAtributo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAtributo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-
-        btnNextCompRound.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnNextCompRound.setText("Próxima rodada comp");
-        btnNextCompRound.setToolTipText("");
 
         lblPanel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1212,7 +1202,6 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(lblPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnNextCompRound, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnNextRodada, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lblAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -1245,8 +1234,6 @@ public class MainFrame extends javax.swing.JFrame {
                                         .addComponent(btnNext)
                                         .addGap(18, 18, 18)
                                         .addComponent(btnNextRodada)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnNextCompRound)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addComponent(panelCartaComputador, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
                             .addComponent(panelCartaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
@@ -1294,7 +1281,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCard4;
     private javax.swing.JButton btnCard5;
     private javax.swing.JButton btnNext;
-    private javax.swing.JButton btnNextCompRound;
     private javax.swing.JButton btnNextRodada;
     private javax.swing.JLabel card1Altura;
     private javax.swing.JLabel card1Comprimento;

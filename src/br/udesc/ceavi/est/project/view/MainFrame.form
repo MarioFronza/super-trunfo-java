@@ -99,7 +99,6 @@
                                           <Component id="lblPanel1" min="-2" pref="347" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="btnNext" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
-                                      <Component id="btnNextCompRound" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                                       <Component id="btnNextRodada" alignment="0" min="-2" pref="178" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -140,8 +139,6 @@
                                           <Component id="btnNext" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="btnNextRodada" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnNextCompRound" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
@@ -1458,7 +1455,7 @@
                       <Component id="cardUserPeso" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cardUserAno" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="47" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -1531,15 +1528,6 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnNextCompRound">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="12" style="1"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Pr&#xf3;xima rodada comp"/>
-            <Property name="toolTipText" type="java.lang.String" value=""/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblPanel1">
