@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 
 
 /**
- * View que define quando o usuário estiver jogando
+ * View do jogo
  * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
  * @version 1.0
  * @since 03/09/2018.

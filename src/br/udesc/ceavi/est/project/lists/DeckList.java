@@ -2,6 +2,13 @@ package br.udesc.ceavi.est.project.lists;
 
 import br.udesc.ceavi.est.project.interfaces.ListDeck;
 
+/**
+ * Classe responsável por implementar a DeckList
+ *
+ * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
+ * @version 1.0
+ * @since 10/09/2018.
+ */
 public class DeckList<E> implements ListDeck<E> {
 
     public static final int CAPACITY = 16;
@@ -43,15 +50,12 @@ public class DeckList<E> implements ListDeck<E> {
     @Override
     public void add(int i, E e) {
         checkIndex(i, size + 1);
-        for (int k = size - 1; k >= i; k--) {
-            data[k + 1] = data[k];
-        }
         data[i] = e;
         size++;
     }
 
     public void addLast(E e) {
-        add(size - 1, e);
+        add(size, e);
     }
 
     @Override

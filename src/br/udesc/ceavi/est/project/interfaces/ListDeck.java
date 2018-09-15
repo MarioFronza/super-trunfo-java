@@ -4,7 +4,7 @@ package br.udesc.ceavi.est.project.interfaces;
  * Interface para listas de deck
  * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
  * @version 1.0
- * @since 03/09/2018.
+ * @since 10/09/2018.
  */
 public interface ListDeck<E> {
     int size(); // Tamanho da lista

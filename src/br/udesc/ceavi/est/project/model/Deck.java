@@ -4,7 +4,7 @@ import br.udesc.ceavi.est.project.lists.ArrayList;
 import java.util.Random;
 
 /**
- * Classe para gerenciar o baralho
+ * Classe para gerenciar o baralho e calcular atributos importantes
  * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
  * @version 1.0
  * @since 03/09/2018.
@@ -33,7 +33,7 @@ public class Deck {
         deck.add(card);
         card = new Card("Oftamossauro", 1.3f, 5.0f, 3000.0f, 165.0f);
         deck.add(card);
-        card = new Card("Alossauro", 5.2f, 14.0f, 3600.0f, 151.0f);
+        card = new Card("Alossauro", 5.2f, 14.5f, 3600.0f, 151.0f);
         deck.add(card);
         card = new Card("Globidens", 1.1f, 6.0f, 400.0f, 150.0f);
         deck.add(card);

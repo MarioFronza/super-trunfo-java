@@ -1,27 +1,28 @@
 package br.udesc.ceavi.est.project.listeners;
 
-import br.udesc.ceavi.est.project.controlador.Controller;
+import br.udesc.ceavi.est.project.controller.ControlGamePlay;
 import br.udesc.ceavi.est.project.interfaces.ListDeck;
 import br.udesc.ceavi.est.project.model.Card;
-import br.udesc.ceavi.est.project.model.CompPlay;
-import br.udesc.ceavi.est.project.model.UserPlay;
 import br.udesc.ceavi.est.project.view.MainFrame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
+/**
+ * Classe responsável pelos listeneres da view 
+ *
+ * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
+ * @version 1.0
+ * @since 13/09/2018.
+ */
 public class ListenerMainFrame {
 
     MainFrame game = MainFrame.getInstance();
-    Controller controller = Controller.getInstance();
+    ControlGamePlay controlGamePlay = ControlGamePlay.getInstance();
     private final ListDeck<Card> handUser;
-    private final UserPlay userPlay;
-    private final CompPlay compPlay;
 
     public ListenerMainFrame() {
-        handUser = controller.getHandUser();
-        userPlay = new UserPlay();
-        compPlay = new CompPlay();
+        handUser = controlGamePlay.getHandUser();
     }
 
     public void addActionListener() {
@@ -62,9 +63,9 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.addUserCardGame(handUser.get(0), 0);
-            controller.showCompCardGame();
-            controller.changeUserHand();
+            controlGamePlay.showUserCardGame(handUser.get(0), 0);
+            controlGamePlay.showCompCardGame();
+            controlGamePlay.changeUserHand();
         }
     }
 
@@ -72,9 +73,9 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.addUserCardGame(handUser.get(1), 1);
-            controller.showCompCardGame();
-            controller.changeUserHand();
+            controlGamePlay.showUserCardGame(handUser.get(1), 1);
+            controlGamePlay.showCompCardGame();
+            controlGamePlay.changeUserHand();
         }
     }
 
@@ -82,9 +83,9 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.addUserCardGame(handUser.get(2), 2);
-            controller.showCompCardGame();
-            controller.changeUserHand();
+            controlGamePlay.showUserCardGame(handUser.get(2), 2);
+            controlGamePlay.showCompCardGame();
+            controlGamePlay.changeUserHand();
         }
     }
 
@@ -92,9 +93,9 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.addUserCardGame(controller.getHandUser().get(3), 3);
-            controller.showCompCardGame();
-            controller.changeUserHand();
+            controlGamePlay.showUserCardGame(controlGamePlay.getHandUser().get(3), 3);
+            controlGamePlay.showCompCardGame();
+            controlGamePlay.changeUserHand();
         }
     }
 
@@ -102,9 +103,9 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            controller.addUserCardGame(controller.getHandUser().get(4), 4);
-            controller.showCompCardGame();
-            controller.changeUserHand();
+            controlGamePlay.showUserCardGame(controlGamePlay.getHandUser().get(4), 4);
+            controlGamePlay.showCompCardGame();
+            controlGamePlay.changeUserHand();
         }
     }
 
@@ -113,13 +114,13 @@ public class ListenerMainFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             MainFrame.getInstance().getLblText().setText("Atributo escolhido: altura");
-            controller.setUserChoice(1);
-            if (controller.getQueueUser().isEmpty()) {
-                controller.compareUserHands();
-            } else if (controller.getQueueComp().isEmpty()) {
-                controller.compareCompHands();
+            controlGamePlay.setUserChoice(1);
+            if (controlGamePlay.getQueueUser().isEmpty()) {
+                controlGamePlay.compareUserHands();
+            } else if (controlGamePlay.getQueueComp().isEmpty()) {
+                controlGamePlay.compareCompHands();
             } else {
-                controller.compareCards();
+                controlGamePlay.compareCards();
             }
         }
     }
@@ -129,13 +130,13 @@ public class ListenerMainFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             MainFrame.getInstance().getLblText().setText("Atributo escolhido: comprimento");
-            controller.setUserChoice(2);
-            if (controller.getQueueUser().isEmpty()) {
-                controller.compareUserHands();
-            } else if (controller.getQueueComp().isEmpty()) {
-                controller.compareCompHands();
+            controlGamePlay.setUserChoice(2);
+            if (controlGamePlay.getQueueUser().isEmpty()) {
+                controlGamePlay.compareUserHands();
+            } else if (controlGamePlay.getQueueComp().isEmpty()) {
+                controlGamePlay.compareCompHands();
             } else {
-                controller.compareCards();
+                controlGamePlay.compareCards();
             }
         }
     }
@@ -145,13 +146,13 @@ public class ListenerMainFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             MainFrame.getInstance().getLblText().setText("Atributo escolhido: peso");
-            controller.setUserChoice(3);
-            if (controller.getQueueUser().isEmpty()) {
-                controller.compareUserHands();
-            } else if (controller.getQueueComp().isEmpty()) {
-                controller.compareCompHands();
+            controlGamePlay.setUserChoice(3);
+            if (controlGamePlay.getQueueUser().isEmpty()) {
+                controlGamePlay.compareUserHands();
+            } else if (controlGamePlay.getQueueComp().isEmpty()) {
+                controlGamePlay.compareCompHands();
             } else {
-                controller.compareCards();
+                controlGamePlay.compareCards();
             }
         }
     }
@@ -161,14 +162,14 @@ public class ListenerMainFrame {
         @Override
         public void actionPerformed(ActionEvent ae) {
             MainFrame.getInstance().getLblText().setText("Atributo escolhido: ano");
-            controller.setUserChoice(4);
-            System.out.println(controller.getQueueUser().isEmpty());
-            if (controller.getQueueUser().isEmpty()) {
-                controller.compareUserHands();
-            } else if (controller.getQueueComp().isEmpty()) {
-                controller.compareCompHands();
+            controlGamePlay.setUserChoice(4);
+            System.out.println(controlGamePlay.getQueueUser().isEmpty());
+            if (controlGamePlay.getQueueUser().isEmpty()) {
+                controlGamePlay.compareUserHands();
+            } else if (controlGamePlay.getQueueComp().isEmpty()) {
+                controlGamePlay.compareCompHands();
             } else {
-                controller.compareCards();
+                controlGamePlay.compareCards();
             }
         }
     }
@@ -177,10 +178,10 @@ public class ListenerMainFrame {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            if (controller.isIsUserPlay()) {
-                controller.newUserRound();
+            if (controlGamePlay.isIsUserPlay()) {
+                controlGamePlay.newUserRound();
             } else {
-                controller.newCompRound();
+                controlGamePlay.newCompRound();
             }
         }
     }
