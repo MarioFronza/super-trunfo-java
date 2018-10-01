@@ -28,12 +28,13 @@ public class ControlGamePlay {
     }
 
     private Deck deck;
-    private Card userCard;
     private int userChoice;
     private int compChoice;
     private int positionUserChoice;
     private int positionCompChoice;
     private boolean isUserPlay = true;
+    private Card compCard;
+    private Card userCard;
 
     // Fila para os montes
     private static ArrayQueue<Card> queueUser = new ArrayQueue<>(15);
@@ -50,11 +51,6 @@ public class ControlGamePlay {
         deck = new Deck();
     }
 
-    /**
-     * Método utilizado para iniciar o jogo
-     *
-     * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
-     */
     public void initGame() {
         deck.createDeck();
         deck.getValues();
@@ -93,32 +89,35 @@ public class ControlGamePlay {
 
     public Card analyzeCompPlay() {
         boolean foundTrunfo = false; // Defines if the comp found a "supertrunfo"
-
+        float bestValue = 0;
         for (int i = 0; i < handComp.size(); i++) {
             // Search a "supertrufo"
             if (handComp.get(i).getWeight() == deck.getBiggerWeight()) {
                 foundTrunfo = true;
                 compChoice = 3;
+                positionCompChoice = i;
             }
 
             if (handComp.get(i).getAge() == deck.getBiggerAge()) {
                 foundTrunfo = true;
                 compChoice = 4;
+                positionCompChoice = i;
             }
 
             if (handComp.get(i).getSize() == deck.getBiggerSize()) {
                 foundTrunfo = true;
                 compChoice = 2;
+                positionCompChoice = i;
             }
 
             if (handComp.get(i).getHeight() == deck.getBiggerHeight()) {
                 foundTrunfo = true;
                 compChoice = 1;
+                positionCompChoice = i;
             }
 
-            if (foundTrunfo) {
-                compChoice = i;
-                return handComp.get(i);
+            if (foundTrunfo == true) {
+                return handComp.get(positionCompChoice);
             }
 
             // Search a normal card with good attributes
@@ -127,40 +126,51 @@ public class ControlGamePlay {
             float averageHeight = handComp.get(i).getPercentageAverageHeight();
             float averageWeight = handComp.get(i).getPercentageAverageWeight();
 
-            if (averageAge > averageSize && averageAge > averageHeight && averageAge > averageWeight) {
-                compChoice = 3;
-            }
-            if (averageSize > averageAge && averageSize > averageHeight && averageSize > averageWeight) {
-                compChoice = 2;
-            }
-            if (averageHeight > averageAge && averageHeight > averageSize && averageHeight > averageWeight) {
-                compChoice = 1;
-            }
-            if (averageWeight > averageAge && averageWeight > averageSize && averageWeight > averageHeight) {
+            if (averageAge > averageSize && averageAge > averageHeight && averageAge > averageWeight && averageAge > bestValue) {
                 compChoice = 4;
+                bestValue = averageAge;
+                positionCompChoice = i;
             }
-            return handComp.get(i);
+            if (averageSize > averageAge && averageSize > averageHeight && averageSize > averageWeight && averageAge > bestValue) {
+                compChoice = 2;
+                bestValue = averageSize;
+                positionCompChoice = i;
+            }
+            if (averageHeight > averageAge && averageHeight > averageSize && averageHeight > averageWeight && averageAge > bestValue) {
+                compChoice = 1;
+                bestValue = averageHeight;
+                positionCompChoice = i;
+            }
+            if (averageWeight > averageAge && averageWeight > averageSize && averageWeight > averageHeight && averageAge > bestValue) {
+                compChoice = 3;
+                bestValue = averageWeight;
+                positionCompChoice = i;
+            }
         }
-        compChoice = 1;
-        return handComp.get(0);
+        bestValue = 0;
+        return handComp.get(positionCompChoice);
     }
 
     public void compareCards() {
+        compCard = null;
+        positionCompChoice = 0;
         controlMainFrame.controlBtnAttribute();
-        // Control results
-        Card compCard = analyzeUserPlay(); // Receive the card
+        if (isUserPlay) {
+            compCard = analyzeUserPlay();
+        } else {
+            compCard = analyzeCompPlay();
+        }
         controlMainFrame.addCompCardView(compCard.getName(), compCard.getHeight(), compCard.getSize(), compCard.getWeight(), compCard.getAge());
         Compare compare = new Compare(userCard, compCard, userChoice, compChoice);
 
-        // Control queue and deck list
         handUser.remove(positionUserChoice);
-        handUser.addLast(queueUser.dequeue());
         handComp.remove(positionCompChoice);
+        handUser.addLast(queueUser.dequeue());
         handComp.addLast(queueComp.dequeue());
 
         MainFrame.getInstance().getBtnNextRodada().setVisible(true);
         if (isUserPlay) {
-            if (compare.calculateWinner() == true) {
+            if (compare.calculateWinnerUser() == true) {
                 MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
                 queueUser.enqueue(userCard);
                 queueUser.enqueue(compCard);
@@ -170,22 +180,29 @@ public class ControlGamePlay {
                 queueComp.enqueue(compCard);
             }
         } else {
-            MainFrame.getInstance().getLblText().setText("teste");
-            MainFrame.getInstance().getLblText().setText(compare.getComputerChoice(compChoice)); // Mostra a mensagem de atributo escolhido pelo computador
             if (compare.calculateWinnerComp() == true) {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
                 MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
                 queueComp.enqueue(userCard);
                 queueComp.enqueue(compCard);
             } else {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
                 MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
                 queueUser.enqueue(userCard);
                 queueUser.enqueue(compCard);
             }
         }
+
     }
 
     public void compareUserHands() {
-        Card compCard = analyzeUserPlay(); // Receive the card
+        compCard = null;
+        positionCompChoice = 0;
+        if (isUserPlay) {
+            compCard = analyzeUserPlay();
+        } else {
+            compCard = analyzeCompPlay();
+        } // Receive the card
         controlMainFrame.addCompCardView(compCard.getName(), compCard.getHeight(), compCard.getSize(), compCard.getWeight(), compCard.getAge());
         Compare compare = new Compare(userCard, compCard, getUserChoice(), compChoice);
 
@@ -196,66 +213,116 @@ public class ControlGamePlay {
         handComp.addLast(queueComp.dequeue());
 
         // View
-        MainFrame.getInstance().getBtnNext().setVisible(false);
         MainFrame.getInstance().getBtnNextRodada().setVisible(true);
-
-        if (compare.calculateWinner() == true) {
-            MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
-            if (handUser.size() < 5) {
-                if (handUser.isEmpty()) {
-                    handUser.add(0, userCard);
-                } else {
-                    handUser.addLast(userCard);
+        if (isUserPlay) {
+            if (compare.calculateWinnerUser() == true) {
+                MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
+                if (handUser.size() < 5) {
+                    if (handUser.isEmpty()) {
+                        handUser.add(0, userCard);
+                    } else {
+                        handUser.addLast(userCard);
+                    }
+                    if (handUser.size() == 5) {
+                        queueUser.enqueue(compCard);
+                    } else {
+                        handUser.addLast(compCard);
+                    }
                 }
-                if (handUser.size() == 5) {
-                    queueUser.enqueue(compCard);
-                } else {
-                    handUser.addLast(compCard);
-                }
+            } else {
+                MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
+                queueComp.enqueue(userCard);
+                queueComp.enqueue(compCard);
             }
         } else {
-            MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
-            queueComp.enqueue(userCard);
-            queueComp.enqueue(compCard);
+            if (compare.calculateWinnerComp()) {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
+                MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
+                queueComp.enqueue(userCard);
+                queueComp.enqueue(compCard);
+            } else {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
+                MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
+                if (handUser.size() < 5) {
+                    if (handUser.isEmpty()) {
+                        handUser.add(0, userCard);
+                    } else {
+                        handUser.addLast(userCard);
+                    }
+                    if (handUser.size() == 5) {
+                        queueUser.enqueue(compCard);
+                    } else {
+                        handUser.addLast(compCard);
+                    }
+                }
+            }
         }
     }
 
     public void compareCompHands() {
-        Card compCard = analyzeUserPlay(); // Receive the card
+        compCard = null;
+        positionCompChoice = 0;
+        if (isUserPlay) {
+            compCard = analyzeUserPlay();
+        } else {
+            compCard = analyzeCompPlay();
+        } // Receive the card
         controlMainFrame.addCompCardView(compCard.getName(), compCard.getHeight(), compCard.getSize(), compCard.getWeight(), compCard.getAge());
         Compare compare = new Compare(userCard, compCard, getUserChoice(), compChoice);
 
         if (!handComp.isEmpty()) {
             handComp.remove(positionCompChoice);
-            changeCompHand();
+            controlMainFrame.changeCompHand(handComp);
         }
         handUser.remove(positionUserChoice);
         handUser.addLast(queueUser.dequeue());
 
         // View
-        MainFrame.getInstance().getBtnNext().setVisible(false);
         MainFrame.getInstance().getBtnNextRodada().setVisible(true);
-
-        if (compare.calculateWinner() == true) {
-            MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
-            queueUser.enqueue(userCard);
-            queueUser.enqueue(compCard);
+        if (isUserPlay) {
+            if (compare.calculateWinnerUser() == true) {
+                MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
+                queueUser.enqueue(userCard);
+                queueUser.enqueue(compCard);
+            } else {
+                MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
+                if (handComp.size() < 5) {
+                    if (handComp.isEmpty()) {
+                        handComp.add(0, compCard);
+                    } else {
+                        handComp.addLast(compCard);
+                    }
+                    if (handComp.size() == 5) {
+                        queueComp.enqueue(userCard);
+                    } else {
+                        handComp.addLast(userCard);
+                    }
+                }
+            }
         } else {
-            MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
-            if (handComp.size() < 5) {
-                if (handComp.isEmpty()) {
-                    handComp.add(0, compCard);
-                } else {
-                    handComp.addLast(compCard);
+            if (compare.calculateWinnerComp() == true) {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
+                MainFrame.getInstance().getLblPanel().setText("O computador venceu a rodada!");
+                if (handComp.size() < 5) {
+                    if (handComp.isEmpty()) {
+                        handComp.add(0, compCard);
+                    } else {
+                        handComp.addLast(compCard);
+                    }
+                    if (handComp.size() == 5) {
+                        queueComp.enqueue(userCard);
+                    } else {
+                        handComp.addLast(userCard);
+                    }
                 }
-                if (handComp.size() == 5) {
-                    queueComp.enqueue(userCard);
-                } else {
-                    handComp.addLast(userCard);
-                }
-                changeCompHand();
+            } else {
+                MainFrame.getInstance().getLblText().setText(compare.getComputerChoice());
+                MainFrame.getInstance().getLblPanel().setText("Você venceu a rodada!");
+                queueUser.enqueue(userCard);
+                queueUser.enqueue(compCard);
             }
         }
+
     }
 
     public void showUserCardGame(Card card, int position) {
@@ -287,12 +354,12 @@ public class ControlGamePlay {
     }
 
     public void newCompRound() {
+        controlMainFrame.changeUserHand(handUser);
+        controlMainFrame.changeCompHand(handComp);
         if (!verifyEndGame()) {
             isUserPlay = true;
-            changeUserHand();
-            changeCompHand();
             MainFrame.getInstance().getLblPanel().setText("Escolha a sua carta");
-            MainFrame.getInstance().getLblText().setText("O computador já escolheu a sua carta");
+            MainFrame.getInstance().getLblText().setText("");
             MainFrame.getInstance().getBtnNextRodada().setVisible(false);
             controlMainFrame.controlBtnCardsVisible();
             controlMainFrame.controlBtnAttribute();
@@ -302,143 +369,19 @@ public class ControlGamePlay {
     }
 
     public void newUserRound() {
+        controlMainFrame.changeUserHand(handUser);
+        controlMainFrame.changeCompHand(handComp);
         if (!verifyEndGame()) {
             isUserPlay = false;
-            changeUserHand();
-            changeCompHand();
             verifyEndGame();
             MainFrame.getInstance().getBtnNextRodada().setVisible(true);
             controlMainFrame.controlBtnCardsVisible();
             controlMainFrame.controlBtnAttribute();
             controlMainFrame.cleanPanelCards();
-            MainFrame.getInstance().getLblPanel().setText("Escolha a carta");
+            MainFrame.getInstance().getLblPanel().setText("Escolha a sua carta");
             MainFrame.getInstance().getLblText().setText("");
         }
         controlMainFrame.showUserHandCards(handUser, queueUser, queueComp);
-    }
-
-    public void changeUserHand() {
-        switch (handUser.size()) {
-            case 0:
-                MainFrame.getInstance().getBtnCard1().setVisible(false);
-                MainFrame.getInstance().getBtnCard2().setVisible(false);
-                MainFrame.getInstance().getBtnCard3().setVisible(false);
-                MainFrame.getInstance().getBtnCard4().setVisible(false);
-                MainFrame.getInstance().getBtnCard5().setVisible(false);
-                MainFrame.getInstance().getPanelUser1().setVisible(false);
-                MainFrame.getInstance().getPanelUser2().setVisible(false);
-                MainFrame.getInstance().getPanelUser3().setVisible(false);
-                MainFrame.getInstance().getPanelUser4().setVisible(false);
-                MainFrame.getInstance().getPanelUser5().setVisible(false);
-                break;
-            case 1:
-                MainFrame.getInstance().getBtnCard1().setVisible(true);
-                MainFrame.getInstance().getBtnCard2().setVisible(false);
-                MainFrame.getInstance().getBtnCard3().setVisible(false);
-                MainFrame.getInstance().getBtnCard4().setVisible(false);
-                MainFrame.getInstance().getBtnCard5().setVisible(false);
-                MainFrame.getInstance().getPanelUser1().setVisible(true);
-                MainFrame.getInstance().getPanelUser2().setVisible(false);
-                MainFrame.getInstance().getPanelUser3().setVisible(false);
-                MainFrame.getInstance().getPanelUser4().setVisible(false);
-                MainFrame.getInstance().getPanelUser5().setVisible(false);
-                break;
-            case 2:
-                MainFrame.getInstance().getBtnCard1().setVisible(true);
-                MainFrame.getInstance().getBtnCard2().setVisible(true);
-                MainFrame.getInstance().getBtnCard3().setVisible(false);
-                MainFrame.getInstance().getBtnCard4().setVisible(false);
-                MainFrame.getInstance().getBtnCard5().setVisible(false);
-                MainFrame.getInstance().getPanelUser1().setVisible(true);
-                MainFrame.getInstance().getPanelUser2().setVisible(true);
-                MainFrame.getInstance().getPanelUser3().setVisible(false);
-                MainFrame.getInstance().getPanelUser4().setVisible(false);
-                MainFrame.getInstance().getPanelUser5().setVisible(false);
-                break;
-            case 3:
-                MainFrame.getInstance().getBtnCard1().setVisible(true);
-                MainFrame.getInstance().getBtnCard2().setVisible(true);
-                MainFrame.getInstance().getBtnCard3().setVisible(true);
-                MainFrame.getInstance().getBtnCard4().setVisible(false);
-                MainFrame.getInstance().getBtnCard5().setVisible(false);
-                MainFrame.getInstance().getPanelUser1().setVisible(true);
-                MainFrame.getInstance().getPanelUser2().setVisible(true);
-                MainFrame.getInstance().getPanelUser3().setVisible(true);
-                MainFrame.getInstance().getPanelUser4().setVisible(false);
-                MainFrame.getInstance().getPanelUser5().setVisible(false);
-                break;
-            case 4:
-                MainFrame.getInstance().getBtnCard1().setVisible(true);
-                MainFrame.getInstance().getBtnCard2().setVisible(true);
-                MainFrame.getInstance().getBtnCard3().setVisible(true);
-                MainFrame.getInstance().getBtnCard4().setVisible(true);
-                MainFrame.getInstance().getBtnCard5().setVisible(false);
-                MainFrame.getInstance().getPanelUser1().setVisible(true);
-                MainFrame.getInstance().getPanelUser2().setVisible(true);
-                MainFrame.getInstance().getPanelUser3().setVisible(true);
-                MainFrame.getInstance().getPanelUser4().setVisible(true);
-                MainFrame.getInstance().getPanelUser5().setVisible(false);
-                break;
-            case 5:
-                MainFrame.getInstance().getBtnCard1().setVisible(true);
-                MainFrame.getInstance().getBtnCard2().setVisible(true);
-                MainFrame.getInstance().getBtnCard3().setVisible(true);
-                MainFrame.getInstance().getBtnCard4().setVisible(true);
-                MainFrame.getInstance().getBtnCard5().setVisible(true);
-                MainFrame.getInstance().getPanelUser1().setVisible(true);
-                MainFrame.getInstance().getPanelUser2().setVisible(true);
-                MainFrame.getInstance().getPanelUser3().setVisible(true);
-                MainFrame.getInstance().getPanelUser4().setVisible(true);
-                MainFrame.getInstance().getPanelUser5().setVisible(true);
-                break;
-        }
-    }
-
-    public void changeCompHand() {
-        switch (handComp.size()) {
-            case 0:
-                MainFrame.getInstance().getPanel1().setVisible(false);
-                MainFrame.getInstance().getPanel2().setVisible(false);
-                MainFrame.getInstance().getPanel3().setVisible(false);
-                MainFrame.getInstance().getPanel4().setVisible(false);
-                MainFrame.getInstance().getPanel5().setVisible(false);
-                break;
-            case 1:
-                MainFrame.getInstance().getPanel1().setVisible(true);
-                MainFrame.getInstance().getPanel2().setVisible(false);
-                MainFrame.getInstance().getPanel3().setVisible(false);
-                MainFrame.getInstance().getPanel4().setVisible(false);
-                MainFrame.getInstance().getPanel5().setVisible(false);
-                break;
-            case 2:
-                MainFrame.getInstance().getPanel1().setVisible(true);
-                MainFrame.getInstance().getPanel2().setVisible(true);
-                MainFrame.getInstance().getPanel3().setVisible(false);
-                MainFrame.getInstance().getPanel4().setVisible(false);
-                MainFrame.getInstance().getPanel5().setVisible(false);
-                break;
-            case 3:
-                MainFrame.getInstance().getPanel1().setVisible(true);
-                MainFrame.getInstance().getPanel2().setVisible(true);
-                MainFrame.getInstance().getPanel3().setVisible(true);
-                MainFrame.getInstance().getPanel4().setVisible(false);
-                MainFrame.getInstance().getPanel5().setVisible(false);
-                break;
-            case 4:
-                MainFrame.getInstance().getPanel1().setVisible(true);
-                MainFrame.getInstance().getPanel2().setVisible(true);
-                MainFrame.getInstance().getPanel3().setVisible(true);
-                MainFrame.getInstance().getPanel4().setVisible(true);
-                MainFrame.getInstance().getPanel5().setVisible(false);
-                break;
-            case 5:
-                MainFrame.getInstance().getPanel1().setVisible(true);
-                MainFrame.getInstance().getPanel2().setVisible(true);
-                MainFrame.getInstance().getPanel3().setVisible(true);
-                MainFrame.getInstance().getPanel4().setVisible(true);
-                MainFrame.getInstance().getPanel5().setVisible(true);
-                break;
-        }
     }
 
     private boolean verifyEndGame() {

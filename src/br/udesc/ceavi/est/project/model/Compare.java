@@ -27,7 +27,7 @@ public class Compare {
     }
 
     // Usado para realizar as comparações quando o usuário escolhe a carta/atributo
-    public boolean calculateWinner() {
+    public boolean calculateWinnerUser() {
         float valueChoiceUser = 0;
         float valueChoiceComp = 0;
 
@@ -77,7 +77,7 @@ public class Compare {
         return valueChoiceComp > valueChoiceUser;
     }
 
-    public String getComputerChoice(int computerChoice) {
+    public String getComputerChoice() {
         switch (compChoice) {
             case 1:
                 return "O computador escolheu altura como atributo";

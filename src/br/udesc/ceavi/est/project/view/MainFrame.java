@@ -1,13 +1,13 @@
 package br.udesc.ceavi.est.project.view;
 
-
+import java.awt.Toolkit;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-
 /**
  * View do jogo
+ *
  * @author João Pedro Schmitz, Mário Fronza, Leonardo Steinke
  * @version 1.0
  * @since 03/09/2018.
@@ -15,24 +15,25 @@ import javax.swing.JPanel;
 public class MainFrame extends javax.swing.JFrame {
 
     private static MainFrame instancia;
-    
+
     public MainFrame() {
         initComponents();
         btnNextRodada.setVisible(false);
-        btnNext.setVisible(false);
+        setTitle("Super Trufo II - João Pedro Schmitz, Mário Fronza, Leonardo Steinke");
     }
-    
-    public static MainFrame getInstance(){
-        if(instancia == null)
+
+    public static MainFrame getInstance() {
+        if (instancia == null) {
             instancia = new MainFrame();
-        
+        }
+
         return instancia;
     }
-    
+
     public JLabel getIndiceCarta() {
         return lblAtributo;
-    } 
-    
+    }
+
     public void setIndiceCarta(float value) {
         lblAtributo.setText(Float.toString(value));
     }
@@ -40,11 +41,11 @@ public class MainFrame extends javax.swing.JFrame {
     public JButton getBtnNextRodada() {
         return btnNextRodada;
     }
-    
+
     public JLabel getLblText() {
         return lblText;
     }
-    
+
     public JLabel getLblPanel() {
         return lblPanel;
     }
@@ -56,7 +57,7 @@ public class MainFrame extends javax.swing.JFrame {
     public JPanel getPanelUser2() {
         return panelUser2;
     }
-    
+
     public JPanel getPanelUser3() {
         return panelUser3;
     }
@@ -104,7 +105,7 @@ public class MainFrame extends javax.swing.JFrame {
     public JPanel getPanel5() {
         return panel5;
     }
-    
+
     public JButton getCardComputerPeso() {
         return cardComputerPeso;
     }
@@ -131,10 +132,6 @@ public class MainFrame extends javax.swing.JFrame {
 
     public JButton getBtnCard5() {
         return btnCard5;
-    }
-
-    public JButton getBtnNext() {
-        return btnNext;
     }
 
     public JLabel getCard1Altura() {
@@ -357,11 +354,10 @@ public class MainFrame extends javax.swing.JFrame {
         cardUserPeso = new javax.swing.JButton();
         cardUserAno = new javax.swing.JButton();
         lblPanel = new javax.swing.JLabel();
-        btnNext = new javax.swing.JButton();
         lblAtributo = new javax.swing.JLabel();
         lblPanel1 = new javax.swing.JLabel();
-        lblText = new javax.swing.JLabel();
         btnNextRodada = new javax.swing.JButton();
+        lblText = new javax.swing.JLabel();
 
         jLabel1.setText("jLabel1");
 
@@ -457,9 +453,9 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(card1Viveu)
                     .addGroup(panelUser1Layout.createSequentialGroup()
                         .addComponent(jLabel57)
-                        .addGap(0, 8, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel3)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelUser2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -521,7 +517,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelUser2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(nameCard2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel52)
                     .addComponent(card2Altura))
@@ -537,9 +533,9 @@ public class MainFrame extends javax.swing.JFrame {
                 .addGroup(panelUser2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel58)
                     .addComponent(card2Viveu))
-                .addGap(0, 7, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelUser3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -623,7 +619,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jLabel64))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         panelUser4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -817,7 +813,7 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(card1Size, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
+                .addComponent(card1Size, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1075,7 +1071,7 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(panel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1158,10 +1154,6 @@ public class MainFrame extends javax.swing.JFrame {
         lblPanel.setText("Escolha a carta");
         lblPanel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        btnNext.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        btnNext.setText("Próximo");
-        btnNext.setEnabled(false);
-
         lblAtributo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblAtributo.setForeground(new java.awt.Color(240, 240, 240));
         lblAtributo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1171,11 +1163,11 @@ public class MainFrame extends javax.swing.JFrame {
         lblPanel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPanel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         btnNextRodada.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         btnNextRodada.setText("Próxima rodada");
         btnNextRodada.setToolTipText("");
+
+        lblText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout panelBackgroundLayout = new javax.swing.GroupLayout(panelBackground);
         panelBackground.setLayout(panelBackgroundLayout);
@@ -1184,64 +1176,65 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(panelBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panelSuperiorUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelInferiorUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelBackgroundLayout.createSequentialGroup()
-                        .addComponent(panelCartaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(panelCartaComputador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
                         .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                .addGap(87, 87, 87)
+                                .addComponent(panelCartaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(41, 41, 41)
+                                .addComponent(panelCartaComputador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                        .addGap(6, 6, 6)
-                                        .addComponent(lblPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnNextRodada, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGap(142, 142, 142)
+                                        .addComponent(lblPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                        .addGap(227, 227, 227)
+                                        .addComponent(btnNextRodada, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                        .addGap(116, 116, 116)
+                                        .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 412, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                .addComponent(panelInferiorUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(563, 563, 563)))
+                        .addComponent(lblPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAtributo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelSuperiorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelBackgroundLayout.setVerticalGroup(
             panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBackgroundLayout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(panelSuperiorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelBackgroundLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(lblPanel)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblPanel1)
-                                .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(lblAtributo)
-                                        .addGap(70, 70, 70))
-                                    .addGroup(panelBackgroundLayout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(13, 13, 13)
-                                        .addComponent(btnNext)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnNextRodada)
-                                        .addGap(0, 0, Short.MAX_VALUE))))
-                            .addComponent(panelCartaComputador, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-                            .addComponent(panelCartaUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPanel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAtributo))
                     .addGroup(panelBackgroundLayout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(jLabel5)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(panelInferiorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(panelBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(panelCartaComputador, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+                                    .addComponent(panelCartaUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                .addGap(86, 86, 86)
+                                .addComponent(jLabel5))
+                            .addGroup(panelBackgroundLayout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(lblPanel)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblText, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14)
+                                .addComponent(btnNextRodada)))
+                        .addGap(18, 18, 18)
+                        .addComponent(panelInferiorUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -1249,13 +1242,13 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 1242, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(panelBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(panelBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 659, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -1280,7 +1273,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnCard3;
     private javax.swing.JButton btnCard4;
     private javax.swing.JButton btnCard5;
-    private javax.swing.JButton btnNext;
     private javax.swing.JButton btnNextRodada;
     private javax.swing.JLabel card1Altura;
     private javax.swing.JLabel card1Comprimento;

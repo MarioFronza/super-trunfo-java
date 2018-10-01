@@ -1,6 +1,7 @@
 package br.udesc.ceavi.est.project.listeners;
 
 import br.udesc.ceavi.est.project.controller.ControlGamePlay;
+import br.udesc.ceavi.est.project.controller.ControlMainFrame;
 import br.udesc.ceavi.est.project.interfaces.ListDeck;
 import br.udesc.ceavi.est.project.model.Card;
 import br.udesc.ceavi.est.project.view.MainFrame;
@@ -17,8 +18,9 @@ import javax.swing.JButton;
  */
 public class ListenerMainFrame {
 
-    MainFrame game = MainFrame.getInstance();
+    ControlMainFrame controlMainFrame = ControlMainFrame.getInstance();
     ControlGamePlay controlGamePlay = ControlGamePlay.getInstance();
+    MainFrame game = MainFrame.getInstance();
     private final ListDeck<Card> handUser;
 
     public ListenerMainFrame() {
@@ -65,7 +67,7 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             controlGamePlay.showUserCardGame(handUser.get(0), 0);
             controlGamePlay.showCompCardGame();
-            controlGamePlay.changeUserHand();
+            controlMainFrame.changeUserHand(handUser);
         }
     }
 
@@ -75,7 +77,7 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             controlGamePlay.showUserCardGame(handUser.get(1), 1);
             controlGamePlay.showCompCardGame();
-            controlGamePlay.changeUserHand();
+            controlMainFrame.changeUserHand(handUser);
         }
     }
 
@@ -85,7 +87,7 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             controlGamePlay.showUserCardGame(handUser.get(2), 2);
             controlGamePlay.showCompCardGame();
-            controlGamePlay.changeUserHand();
+            controlMainFrame.changeUserHand(handUser);
         }
     }
 
@@ -95,7 +97,7 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             controlGamePlay.showUserCardGame(controlGamePlay.getHandUser().get(3), 3);
             controlGamePlay.showCompCardGame();
-            controlGamePlay.changeUserHand();
+            controlMainFrame.changeUserHand(handUser);
         }
     }
 
@@ -105,7 +107,7 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             controlGamePlay.showUserCardGame(controlGamePlay.getHandUser().get(4), 4);
             controlGamePlay.showCompCardGame();
-            controlGamePlay.changeUserHand();
+            controlMainFrame.changeUserHand(handUser);
         }
     }
 
@@ -163,7 +165,6 @@ public class ListenerMainFrame {
         public void actionPerformed(ActionEvent ae) {
             MainFrame.getInstance().getLblText().setText("Atributo escolhido: ano");
             controlGamePlay.setUserChoice(4);
-            System.out.println(controlGamePlay.getQueueUser().isEmpty());
             if (controlGamePlay.getQueueUser().isEmpty()) {
                 controlGamePlay.compareUserHands();
             } else if (controlGamePlay.getQueueComp().isEmpty()) {
